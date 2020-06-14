@@ -374,8 +374,12 @@ Slimv also autodetects an existing tmux session, so you can use tmux instead
 of GNU screen for the same purpose.
 
                                                                  *g:swank_port*
+                                                                 *b:swank_port*
 The SWANK server is connected to port 4005 by default. This can be changed
 using the g:swank_port option.
+Using b:swank_port is supported, too. This is usefull, to use different ports
+for different filetypes, e.g. have a swank server for lisp and scheme running
+in parallel.
 
                                                        *g:scheme_builtin_swank*
 

@@ -139,6 +139,12 @@ if !exists( 'g:swank_port' )
     let g:swank_port = 4005
 endif
 
+" Use different ports by buffer (usefull to run a server for lisp and scheme in
+" parallel)
+if !exists( 'b:swank_port' )
+    let b:swank_port = g:swank_port
+endif
+
 " Find Lisp (if not given in vimrc)
 if !exists( 'g:slimv_lisp' )
     let lisp = ['', '']
@@ -1361,7 +1367,7 @@ function! SlimvConnectSwank()
         if g:swank_host == ''
             let g:swank_host = input( 'Swank server host name: ', 'localhost' )
         endif
-        execute s:py_cmd . 'swank_connect("' . g:swank_host . '", ' . g:swank_port . ', "result" )'
+        execute s:py_cmd . 'swank_connect("' . g:swank_host . '", ' . b:swank_port . ', "result" )'
         if result != '' && ( g:swank_host == 'localhost' || g:swank_host == '127.0.0.1' )
             " SWANK server is not running, start server if possible
             let swank = SlimvSwankCommand()
@@ -1372,7 +1378,7 @@ function! SlimvConnectSwank()
                 let starttime = localtime()
                 while result != '' && localtime()-starttime < g:slimv_timeout
                     sleep 500m
-                    execute s:py_cmd . 'swank_connect("' . g:swank_host . '", ' . g:swank_port . ', "result" )'
+                    execute s:py_cmd . 'swank_connect("' . g:swank_host . '", ' . b:swank_port . ', "result" )'
                 endwhile
                 redraw!
             endif
@@ -1410,7 +1416,7 @@ function! SlimvConnectSwank()
         endif
         let s:swank_connected = 1
         redraw
-        echon "\rConnected to SWANK server on port " . g:swank_port . "."
+        echon "\rConnected to SWANK server on port " . b:swank_port . "."
         if exists( "g:swank_block_size" ) && SlimvGetFiletype() == 'lisp'
             " Override SWANK connection output buffer size
             if s:SinceVersion( '2014-09-08' )
