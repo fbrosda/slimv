@@ -139,6 +139,8 @@ For the Swank options plese visit |swank-configuration|.
 
 |g:slimv_clhs_root|          Base URL for the Common Lisp Hyperspec.
 
+|g:slimv_scheme_hs_root|     Base URL for the Scheme documentation.
+
 |g:slimv_clhs_user_db|       User defined extension for Slimv's built-in
                              Common Lisp Hyperspec symbol database.
 
@@ -627,6 +629,15 @@ or
 "file:///usr/local/doc/HyperSpec/" (Linux).
 It is possible to extend the Hyperspec symbol database with user defined
 symbols, see |g:slimv_clhs_user_db| and |g:slimv_cljapi_user_db|.
+
+                                                       *g:slimv_scheme_hs_root*
+Base URL for the Scheme documentation. If this is set, <leader>h will append
+the word under the cursor to this url and open it in the browser. This does
+not offer the same support as the Common Lisp Hyperspec, but is a convenient
+shortcut to lookup documentation.
+
+Example:
+    let g:slimv_scheme_hs_root = 'https://practical-scheme.net/gauche/man/?l=en\&p='
 
                                                          *g:slimv_clhs_user_db*
                                                        *g:slimv_cljapi_user_db*

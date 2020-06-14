@@ -66,6 +66,9 @@ endfunction
 function! SlimvHyperspecLookup( word, exact, all )
     " No Hyperspec support for Scheme at the moment
     let symbol = []
+    if a:exact && exists( 'g:slimv_scheme_hs_root' )
+        let symbol = [a:word, g:slimv_scheme_hs_root . a:word]
+    endif
     return symbol
 endfunction
 
