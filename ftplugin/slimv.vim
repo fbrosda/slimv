@@ -3305,16 +3305,24 @@ function! SlimvFindSymbol( word, exact, all, db, root, init )
     return lst
 endfunction
 
+function! SlimvHyperspecLookupWrap( word, exact, all )
+    if SlimvGetFiletype() == 'scheme'
+        return SlimvHyperspecLookupScheme(a:word, a:exact, a:all)
+    endif
+
+    return SlimvHyperspecLookup(a:word, a:exact, a:all)
+endfunction
+
 " Lookup word in Common Lisp Hyperspec
 function! SlimvLookup( word )
     " First try an exact match
     let w = a:word
     let symbol = []
     while symbol == []
-        let symbol = SlimvHyperspecLookup( w, 1, 0 )
+        let symbol = SlimvHyperspecLookupWrap( w, 1, 0 )
         if symbol == []
             " Symbol not found, try a match on beginning of symbol name
-            let symbol = SlimvHyperspecLookup( w, 0, 0 )
+            let symbol = SlimvHyperspecLookupWrap( w, 0, 0 )
             if symbol == []
                 " We are out of luck, can't find anything
                 let msg = 'Symbol ' . w . ' not found. Hyperspec lookup word: '
@@ -3413,7 +3421,7 @@ function! SlimvComplete( base )
 
     " No completion yet, try to fetch it from the Hyperspec database
     let res = []
-    let symbol = SlimvHyperspecLookup( a:base, 0, 1 )
+    let symbol = SlimvHyperspecLookupWrap( a:base, 0, 1 )
     if symbol == []
         return []
     endif

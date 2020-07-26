@@ -63,7 +63,7 @@ function! SlimvInitRepl()
 endfunction
 
 " Lookup symbol in the Hyperspec
-function! SlimvHyperspecLookup( word, exact, all )
+function! SlimvHyperspecLookupScheme( word, exact, all )
     " No Hyperspec support for Scheme at the moment
     let symbol = []
     if a:exact && exists( 'g:slimv_scheme_hs_root' )
