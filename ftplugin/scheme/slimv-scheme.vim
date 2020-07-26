@@ -78,7 +78,7 @@ runtime ftplugin/**/slimv.vim
 endif "!exists( 'g:slimv_scheme_loaded' )
 " ---------- End of part loaded once ----------
 
-runtime ftplugin/**/lisp.vim
+runtime! ftplugin/**/scheme.vim
 
 " The balloonexpr of MIT-Scheme is broken. Disable it.
 let g:slimv_balloon = 0
